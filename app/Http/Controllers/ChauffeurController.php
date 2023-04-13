@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Admin;
-class AdminController extends Controller
+use App\models\Chauffeur;
+class ChauffeurController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,13 +34,13 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-       Admin::create([
-        'nom' => $request->nom,
-        'prenom' => $request->prenom,
-        'date_de_naissance' => $request->date_de_naissance,
-        'username' => $request->username,
-        'password' => $request->password,
-       ]);
+        Chauffeur::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'date_de_naissance' => $request->date_de_naissance,
+            'username' => $request->username,
+            'password' => $request->password,
+           ]);
     }
 
     /**
@@ -74,19 +74,19 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Admin::where('id_admin',$id)->exists()){
-          $admin=Admin::find($id);
-          $admin->id_admin = $id;
-          $admin->nom = $request->nom;
-          $admin->prenom = $request->prenom;
-          $admin->date_de_naissance = $request->date_de_naissance;
-          $admin->username = $request->username;
-          $admin->password= $request->password;
-          $admin->save();
-          return response()->json(["message"=>"updated succesfully"],200);
-        }else{
-            return response()->json(["message"=>"updated unsuccesfully"],400);
-        }
+        if(Chauffeur::where('id_chauffeur',$id)->exists()){
+            $admin=Chauffeur::find($id);
+            $admin->id_chauffeur = $id;
+            $admin->nom = $request->nom;
+            $admin->prenom = $request->prenom;
+            $admin->date_de_naissance = $request->date_de_naissance;
+            $admin->username = $request->username;
+            $admin->password= $request->password;
+            $admin->save();
+            return response()->json(["message"=>"updated succesfully"],200);
+          }else{
+              return response()->json(["message"=>"updated unsuccesfully"],400);
+          }
     }
 
     /**
@@ -97,11 +97,12 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        if(Admin::where('id_admin',$id)->exists()){
-            $admin=Admin::find($id);
+        if(Chauffeur::where('id_chauffeur',$id)->exists()){
+            $admin=Chauffeur::find($id);
             $admin->delete();
             return response()->json(["message"=>"delete succesfully"],200);
         }else{
             return response()->json(["message"=>"delete unsuccesfully"],400);
         }
-}}
+    }
+}

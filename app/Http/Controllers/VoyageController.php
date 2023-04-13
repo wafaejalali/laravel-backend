@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Admin;
-class AdminController extends Controller
+use App\models\Voyage;
+use App\models\Vahicule;
+class VoyageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,14 +34,17 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       Admin::create([
-        'nom' => $request->nom,
-        'prenom' => $request->prenom,
-        'date_de_naissance' => $request->date_de_naissance,
-        'username' => $request->username,
-        'password' => $request->password,
-       ]);
+    {   $id_vehicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vehicule;
+        Voyage::create([
+            'id_voyage' => $request->id_voyage,
+            'destination' => $request->destination,
+            'date_depart' => $request->date_depart,
+            'date_arrive' => $request->date_arrive,
+            'duree' => $request->duree,
+            'consommation' => $request->consommation,
+            'date_programmer' =>$request->date_programmer,
+            'id_vehicule' =>$id_vehicule,
+           ]);
     }
 
     /**
@@ -74,19 +78,22 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Admin::where('id_admin',$id)->exists()){
-          $admin=Admin::find($id);
-          $admin->id_admin = $id;
-          $admin->nom = $request->nom;
-          $admin->prenom = $request->prenom;
-          $admin->date_de_naissance = $request->date_de_naissance;
-          $admin->username = $request->username;
-          $admin->password= $request->password;
-          $admin->save();
-          return response()->json(["message"=>"updated succesfully"],200);
-        }else{
-            return response()->json(["message"=>"updated unsuccesfully"],400);
-        }
+        if(Voyage::where('id_voyage',$id)->exists()){
+            $admin=Voyage::find($id);
+            $id_vehicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vehicule;
+            $admin->id_voyage = $id;
+            $admin->destination = $request->destination;
+            $admin->date_depart = $request->date_depart;
+            $admin->date_arrive = $request->date_arrive;
+            $admin->duree = $request->duree;
+            $admin->consommation= $request->consommation;
+            $admin->date_programmer= $request->date_programmer;
+            $admin->id_vehicule= $id_vehicule;
+            $admin->save();
+            return response()->json(["message"=>"updated succesfully"],200);
+          }else{
+              return response()->json(["message"=>"updated unsuccesfully"],400);
+          }
     }
 
     /**
@@ -97,11 +104,12 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        if(Admin::where('id_admin',$id)->exists()){
-            $admin=Admin::find($id);
+        if(Voyage::where('id_voyage',$id)->exists()){
+            $admin=Voyage::find($id);
             $admin->delete();
             return response()->json(["message"=>"delete succesfully"],200);
         }else{
             return response()->json(["message"=>"delete unsuccesfully"],400);
         }
-}}
+    }
+}
