@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Admin;
+use App\Models\Admin;
 class AdminController extends Controller
 {
     /**
