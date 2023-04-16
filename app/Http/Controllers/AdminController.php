@@ -13,7 +13,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $coins = Admin::all();
+
+        return response()->json($coins);
     }
 
     /**

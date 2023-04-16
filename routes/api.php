@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/coins', 'App\Http\Controllers\CoinController@index');
+Route::get('/Admins', 'App\Http\Controllers\AdminController@index');
 Route::controller(AdminController::class)->group(function () {
     Route::get('/admins', function () {return AdminResource::collection(Admin::all());});
     Route::post('/admin','store');
