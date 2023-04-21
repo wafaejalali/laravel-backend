@@ -37,7 +37,7 @@ Route::get('/posts', 'App\Http\Controllers\PostController@index');
 Route::get('/Admins', 'App\Http\Controllers\AdminController@index');
 Route::controller(AdminController::class)->group(function () {
     Route::get('/admins', function () {return AdminResource::collection(Admin::all());});
-    Route::post('/admin','store');
+    Route::post('/admin','App\Http\Controllers\AdminController@store');
     Route::put('/admin/{id}','update');
     Route::delete('/admin/{id}','destroy');
 });
