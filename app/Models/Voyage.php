@@ -17,6 +17,6 @@ class Voyage extends Model
         'duree',
         'consommation',
         'date_programmer',
-        'id_vehicule'
+        'id_vahicule'
     ];
 }
