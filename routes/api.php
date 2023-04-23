@@ -16,6 +16,9 @@ use App\Models\Vahicule;
 use App\Http\Controllers\VoyageController;
 use App\Http\Resources\VoyageResource;
 use App\Models\Voyage;
+use App\Models\Incident;
+use App\Http\Controllers\IncidentController;
+use App\Http\Resources\IncidentResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +67,12 @@ Route::controller(VoyageController::class)->group(function () {
     Route::post('/voyage','store');
     Route::put('/voyage/{id}','update');
     Route::delete('/voyage/{id}','destroy');
+});
+
+
+Route::controller(IncidentController::class)->group(function () {
+    Route::get('/incidents', function () {return IncidentResource::collection(Incident::all());});
+    Route::post('/incident','store');
+    Route::put('/incident/{id}','update');
+    Route::delete('/incident/{id}','destroy');
 });
