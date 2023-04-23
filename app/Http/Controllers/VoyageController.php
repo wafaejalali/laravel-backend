@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Voyage;
-use App\models\Vahicule;
+use App\Models\Voyage;
+use App\Models\Vahicule;
 class VoyageController extends Controller
 {
     /**

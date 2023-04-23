@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Chauffeur;
-use App\models\Vahicule;
+use App\Models\Chauffeur;
+use App\Models\Vahicule;
 class VahiculeController extends Controller
 {
     /**
