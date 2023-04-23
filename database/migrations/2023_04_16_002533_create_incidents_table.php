@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('incidents', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_incident')->primary();
+            $table->id('id_incident');
             $table->string('date_incident');
             $table->string('lieu');
             $table->string('personne_impliquees');
             $table->string('pert');
             $table->string('etat_incident');
-        
+
             $table->timestamps();
         });
     }
