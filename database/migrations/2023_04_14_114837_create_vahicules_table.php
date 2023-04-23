@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('vahicules', function (Blueprint $table) {
             $table->id('id_vahicule');
             $table->string('modele');
-            $table->string('matricule');
+            $table->string('matricule')->unique();
             $table->string('couleur');
             $table->string('Transmission');
             $table->timestamps();
