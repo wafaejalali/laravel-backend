@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Incident extends Model
 {
     use HasFactory;
-    protected $table='incients';
+    protected $table='incidents';
     protected $primaryKey="id_incident";
     protected $fillable=[
         'date_incident',
