@@ -22,7 +22,7 @@ class VoyageResource extends JsonResource
             'duree' => $this->duree,
             'consommation' => $this->consommation,
             'date_programmer' => $this->date_programmer,
-            'id_vehicule' => $this->id_vehicule,
+            'id_vahicule' => $this->id_vahicule,
         ];
     }
 }
