@@ -34,7 +34,7 @@ class VoyageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   $id_vehicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vehicule;
+    {   $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
         Voyage::create([
             'id_voyage' => $request->id_voyage,
             'destination' => $request->destination,
@@ -43,7 +43,7 @@ class VoyageController extends Controller
             'duree' => $request->duree,
             'consommation' => $request->consommation,
             'date_programmer' =>$request->date_programmer,
-            'id_vehicule' =>$id_vehicule,
+            'id_vahicule' =>$id_vahicule,
            ]);
     }
 
@@ -80,7 +80,7 @@ class VoyageController extends Controller
     {
         if(Voyage::where('id_voyage',$id)->exists()){
             $admin=Voyage::find($id);
-            $id_vehicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vehicule;
+            $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
             $admin->id_voyage = $id;
             $admin->destination = $request->destination;
             $admin->date_depart = $request->date_depart;
@@ -88,7 +88,7 @@ class VoyageController extends Controller
             $admin->duree = $request->duree;
             $admin->consommation= $request->consommation;
             $admin->date_programmer= $request->date_programmer;
-            $admin->id_vehicule= $id_vehicule;
+            $admin->id_vahicule= $id_vahicule;
             $admin->save();
             return response()->json(["message"=>"updated succesfully"],200);
           }else{
