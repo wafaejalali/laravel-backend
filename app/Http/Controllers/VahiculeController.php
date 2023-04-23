@@ -76,7 +76,7 @@ class VahiculeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Vahicule::where('id_vehicule',$id)->exists()){
+        if(Vahicule::where('id_vahicule',$id)->exists()){
             $admin=Vahicule::find($id);
             $id_chauffeur=Chauffeur::where('nom','=',$request->chauffeur)->first()->id_chauffeur;
             $admin->id_vehicule = $id;
@@ -100,7 +100,7 @@ class VahiculeController extends Controller
      */
     public function destroy($id)
     {
-        if(Vahicule::where('id_vehicule',$id)->exists()){
+        if(Vahicule::where('id_vahicule',$id)->exists()){
             $admin=Vahicule::find($id);
             $admin->delete();
             return response()->json(["message"=>"delete succesfully"],200);
