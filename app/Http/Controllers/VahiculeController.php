@@ -79,7 +79,7 @@ class VahiculeController extends Controller
         if(Vahicule::where('id_vahicule',$id)->exists()){
             $admin=Vahicule::find($id);
             $id_chauffeur=Chauffeur::where('nom','=',$request->chauffeur)->first()->id_chauffeur;
-            $admin->id_vehicule = $id;
+            $admin->id_vahicule = $id;
             $admin->modele = $request->modele;
             $admin->matricule = $request->matricule;
             $admin->couleur = $request->couleur;
