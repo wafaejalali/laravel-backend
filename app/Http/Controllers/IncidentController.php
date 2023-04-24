@@ -37,7 +37,6 @@ class IncidentController extends Controller
     public function store(Request $request)
     {
         $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
-        $destination =$request->destination;
         $id_voyage=Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage;
         Incident::create([
             'date_incident' => $request->date_incident,
@@ -45,7 +44,7 @@ class IncidentController extends Controller
             'personne_impliquees' => $request->personne_impliquees,
             'pert'=> $request->pert,
             'etat_incident' => $request->etat_incident,
-            'id_voyage' => $request->id_voyage,
+            'id_voyage' => $id_voyage,
            ]);
 
     }
