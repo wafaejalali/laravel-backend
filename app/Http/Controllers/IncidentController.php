@@ -38,6 +38,7 @@ class IncidentController extends Controller
     {
         $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
         $id_voyage=Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage;
+
         Incident::create([
             'date_incident' => $request->date_incident,
             'lieu' => $request->lieu,
@@ -80,7 +81,21 @@ class IncidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Incident::where('id_incident',$id)->exists()){
+            $admin=Incident::find($id);
+            $id_voyage=Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage;
+            $admin->id_incident = $id;
+            $admin->lieu = $request->lieu;
+            $admin->personne_impliquees = $request->personne_impliquees;
+            $admin->pert = $request->pert;
+            $admin->etat_incident = $request->etat_incident;
+            $admin->id_voyage=$id_voyage;
+
+            $admin->save();
+            return response()->json(["message"=>"updated succesfully"],200);
+          }else{
+              return response()->json(["message"=>"updated unsuccesfully"],400);
+          }
     }
 
     /**
@@ -91,6 +106,12 @@ class IncidentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Incident::where('id_incident',$id)->exists()){
+            $admin=Incident::find($id);
+            $admin->delete();
+            return response()->json(["message"=>"delete succesfully"],200);
+        }else{
+            return response()->json(["message"=>"delete unsuccesfully"],400);
+        }
     }
 }
