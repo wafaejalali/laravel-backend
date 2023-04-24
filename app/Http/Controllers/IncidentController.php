@@ -83,16 +83,21 @@ class IncidentController extends Controller
     {
         if(Incident::where('id_incident',$id)->exists()){
             $admin=Incident::find($id);
+            $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
             $id_voyage=Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage;
-            $admin->id_incident = $id;
-            $admin->lieu = $request->lieu;
-            $admin->personne_impliquees = $request->personne_impliquees;
-            $admin->pert = $request->pert;
-            $admin->etat_incident = $request->etat_incident;
-            $admin->id_voyage=$id_voyage;
+            if($id_voyage){
+                $admin->id_incident = $id;
+                $admin->lieu = $request->lieu;
+                $admin->personne_impliquees = $request->personne_impliquees;
+                $admin->pert = $request->pert;
+                $admin->etat_incident = $request->etat_incident;
+                $admin->id_voyage=$id_voyage;
+                $admin->save();
+                return response()->json(["message"=>"updated succesfully"],200);}
+            else{
+                return response()->json(["message"=>"cette voyage n'existe pas"],400);
+            }
 
-            $admin->save();
-            return response()->json(["message"=>"updated succesfully"],200);
           }else{
               return response()->json(["message"=>"updated unsuccesfully"],400);
           }
