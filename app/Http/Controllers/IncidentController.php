@@ -85,7 +85,7 @@ class IncidentController extends Controller
             $admin=Incident::find($id);
             $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
 
-            if(Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage!=null){
+            if(Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage!=0){
                 $id_voyage=Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage;
                 $admin->id_incident = $id;
                 $admin->lieu = $request->lieu;
