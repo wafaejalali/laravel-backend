@@ -35,13 +35,13 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  $pass=Hash::make($request->password);
        Admin::create([
         'nom' => $request->nom,
         'prenom' => $request->prenom,
         'date_de_naissance' => $request->date_de_naissance,
         'username' => $request->username,
-        'password' => $request->password,
+        'password' => $pass,
        ]);
     }
 
