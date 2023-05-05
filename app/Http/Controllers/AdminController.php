@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 class AdminController extends Controller
@@ -35,13 +35,13 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  $pass=Hash::make($request->password);
        $admin = new Admin();
        $admin->nom= $request->nom;
        $admin->prenom= $request->prenom;
        $admin->date_de_naissance= $request->date_de_naissance;
        $admin->username = $request->username;
-       $admin->password = $request->password;
+       $admin->password = $pass;
 
 
        $admin->save();
