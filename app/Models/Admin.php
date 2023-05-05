@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $table='admins';
     protected $primaryKey="id_admin";
     protected $fillable=[
@@ -17,4 +22,15 @@ class Admin extends Model
         'username',
         'password'
     ];
+     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+
+    ];
+
+  
 }
