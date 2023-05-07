@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Hash;
 use Illuminate\Support\Str;
 use DB;
+use Mail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -60,11 +61,12 @@ class AdminController extends Controller
         }
         $tokenData = DB::table('password_resets') ->where('email', $request->email)->first();
 
-        if ($this->sendResetEmail($request->email, $tokenData->token)) {
-            return redirect()->back()->with('status', trans('A reset link has been sent to your email address.'));
-        } else {
-            return redirect()->back()->withErrors(['error' => trans('A Network Error occurred. Please try again.')]);
-        }
+        Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Reset Password');
+        });
+
+        return back()->with('message', 'We have e-mailed your password reset link!');
     }
 
     /**
