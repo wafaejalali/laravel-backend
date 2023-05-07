@@ -35,12 +35,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/coins', 'App\Http\Controllers\CoinController@index');
-Route::get('/posts', 'App\Http\Controllers\PostController@index');
-Route::get('/Admins', 'App\Http\Controllers\AdminController@index');
-Route::post('/admin','App\Http\Controllers\AdminController@store');
+
 Route::controller(AdminController::class)->group(function () {
     Route::get('/admins', function () {return AdminResource::collection(Admin::all());});
+    Route::get('/admin/{id}',function($id){return new AdminResource(Admin::findOrFail($id));});
     Route::post('/admin','App\Http\Controllers\AdminController@store');
     Route::put('/admin/{id}','update');
     Route::delete('/admin/{id}','destroy');
@@ -48,6 +46,7 @@ Route::controller(AdminController::class)->group(function () {
 
 Route::controller(ChauffeurController::class)->group(function () {
     Route::get('/chauffeurs', function () {return ChauffeurResource::collection(Chauffeur::all());});
+    Route::get('/chauffeur/{id}',function($id){return new ChauffeurResource(Chauffeur::findOrFail($id));});
     Route::post('/chauffeur','store');
     Route::put('/chauffeur/{id}','update');
     Route::delete('/chauffeur/{id}','destroy');
@@ -56,6 +55,7 @@ Route::controller(ChauffeurController::class)->group(function () {
 
 Route::controller(VahiculeController::class)->group(function () {
     Route::get('/vehicules', function () {return VehiculeResource::collection(Vahicule::all());});
+    Route::get('/vehicule/{id}',function($id){return new VehiculeResource(Vahicule::findOrFail($id));});
     Route::post('/vehicule','store');
     Route::put('/vehicule/{id}','update');
     Route::delete('/vehicule/{id}','destroy');
@@ -64,6 +64,7 @@ Route::controller(VahiculeController::class)->group(function () {
 
 Route::controller(VoyageController::class)->group(function () {
     Route::get('/voyages', function () {return VoyageResource::collection(Voyage::all());});
+    Route::get('/voyage/{id}',function($id){return new VoyageResource(Voyage::findOrFail($id));});
     Route::post('/voyage','store');
     Route::put('/voyage/{id}','update');
     Route::delete('/voyage/{id}','destroy');
@@ -72,6 +73,7 @@ Route::controller(VoyageController::class)->group(function () {
 
 Route::controller(IncidentController::class)->group(function () {
     Route::get('/incidents', function () {return IncidentResource::collection(Incident::all());});
+    Route::get('/incident/{id}',function($id){return new IncidentResource(Incident::findOrFail($id));});
     Route::post('/incident','store');
     Route::put('/incident/{id}','update');
     Route::delete('/incident/{id}','destroy');

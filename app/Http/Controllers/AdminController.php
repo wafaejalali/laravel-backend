@@ -13,9 +13,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $coins = Admin::all();
+        $admin = Admin::all();
 
-        return response()->json($coins);
+        return response()->json($admin);
     }
 
     /**
@@ -42,8 +42,6 @@ class AdminController extends Controller
        $admin->date_de_naissance= $request->date_de_naissance;
        $admin->username = $request->username;
        $admin->password = $pass;
-
-
        $admin->save();
        return $admin;
     }
