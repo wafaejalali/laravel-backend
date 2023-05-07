@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Hash;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 class AdminController extends Controller
@@ -46,15 +47,21 @@ class AdminController extends Controller
     public function resetpassword(Request $request)
     {
         $email = $request->email;
-
-
         // check if user exists in database
-        $user = Admin::where('username', $username)->first();
+        $user = Admin::where('email', $email)->first();
+        if (count($user) > 1) {
+            DB::table('password_resets')->insert([
+                'email' => $request->email,
+                'token' => str_random(60),
+                'created_at' => Carbon::now()
+            ]);
+        }
+        $tokenData = DB::table('password_resets') ->where('email', $request->email)->first();
 
-        if ($user && Hash::check($password, $user->password)) {
-            return response()->json(['exists' => true]);
+        if ($this->sendResetEmail($request->email, $tokenData->token)) {
+            return redirect()->back()->with('status', trans('A reset link has been sent to your email address.'));
         } else {
-            return response()->json(['exists' => false]);
+            return redirect()->back()->withErrors(['error' => trans('A Network Error occurred. Please try again.')]);
         }
     }
 
