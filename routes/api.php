@@ -37,9 +37,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::controller(AdminController::class)->group(function () {
+    Route::post('/adminLogin','login');
     Route::get('/admins', function () {return AdminResource::collection(Admin::all());});
     Route::get('/admin/{id}',function($id){return new AdminResource(Admin::findOrFail($id));});
-    Route::post('/admin','App\Http\Controllers\AdminController@store');
+    Route::post('/admin','store');
     Route::put('/admin/{id}','update');
     Route::delete('/admin/{id}','destroy');
 });

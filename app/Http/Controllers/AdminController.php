@@ -20,12 +20,22 @@ class AdminController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function login(Request $request)
     {
-        //
+        $username = $request->username;
+        $password = $request->password;
+
+        // check if user exists in database
+        $user = Admin::where('username', $username)->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            return response()->json(['exists' => true]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
     }
 
     /**
