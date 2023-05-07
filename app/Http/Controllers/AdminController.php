@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Hash;
+use Illuminate\Support\Str;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -52,7 +53,7 @@ class AdminController extends Controller
         if (Admin::where('email',$email)->exists()) {
             DB::table('password_resets')->insert([
                 'email' => $request->email,
-                'token' => str_random(60),
+                'token' => Str::random(10),
                 'created_at' => Carbon::now()
             ]);
         }
