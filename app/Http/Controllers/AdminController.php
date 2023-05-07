@@ -39,6 +39,26 @@ class AdminController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetpassword(Request $request)
+    {
+        $email = $request->email;
+
+
+        // check if user exists in database
+        $user = Admin::where('username', $username)->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            return response()->json(['exists' => true]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -50,6 +70,7 @@ class AdminController extends Controller
        $admin->nom= $request->nom;
        $admin->prenom= $request->prenom;
        $admin->date_de_naissance= $request->date_de_naissance;
+       $admin->email= $request->email;
        $admin->username = $request->username;
        $admin->password = $pass;
        $admin->save();
@@ -93,6 +114,7 @@ class AdminController extends Controller
           $admin->nom = $request->nom;
           $admin->prenom = $request->prenom;
           $admin->date_de_naissance = $request->date_de_naissance;
+          $admin->email = $request->email;
           $admin->username = $request->username;
           $admin->password= $request->password;
           $admin->save();

@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(AdminController::class)->group(function () {
     Route::post('/adminLogin','login');
+    Route::post('/resetPassword','resetpassword');
     Route::get('/admins', function () {return AdminResource::collection(Admin::all());});
     Route::get('/admin/{id}',function($id){return new AdminResource(Admin::findOrFail($id));});
     Route::post('/admin','store');
@@ -46,6 +47,7 @@ Route::controller(AdminController::class)->group(function () {
 });
 
 Route::controller(ChauffeurController::class)->group(function () {
+    Route::post('/chauffeurLogin','login');
     Route::get('/chauffeurs', function () {return ChauffeurResource::collection(Chauffeur::all());});
     Route::get('/chauffeur/{id}',function($id){return new ChauffeurResource(Chauffeur::findOrFail($id));});
     Route::post('/chauffeur','store');
