@@ -49,7 +49,7 @@ class AdminController extends Controller
         $email = $request->email;
         // check if user exists in database
         $user = Admin::where('email', $email)->first();
-        if (count($user) > 1) {
+        if (Admin::where('email',$email)->exists()) {
             DB::table('password_resets')->insert([
                 'email' => $request->email,
                 'token' => str_random(60),
