@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Hash;
 use Illuminate\Support\Str;
 use DB;
-use Carbon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 class AdminController extends Controller
