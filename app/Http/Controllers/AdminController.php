@@ -61,7 +61,7 @@ class AdminController extends Controller
         }
         $tokenData = DB::table('password_resets') ->where('email', $request->email)->first();
 
-        Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request){
+        Mail::send('email.forgetPassword', ['token' => $tokenData], function($message) use($request){
             $message->to($request->email);
             $message->subject('Reset Password');
         });
