@@ -7,6 +7,7 @@
 <body>
     <h1>Hello, {{ $token }}!</h1>
     <p>Thanks for signing up for My Site. We're excited to have you as a member!</p>
+    <a href="{{ route('reset.password.get', $token) }}">Reset Password</a>
     <p>Best regards,</p>
     <p>The My Site Team</p>
 </body>

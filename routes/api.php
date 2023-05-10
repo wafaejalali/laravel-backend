@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(AdminController::class)->group(function () {
     Route::post('/adminLogin','login');
     Route::post('/resetPassword','resetpassword');
+    Route::get('reset-password/{token}',  'showResetPasswordForm')->name('reset.password.get');
+Route::post('submit-reset-password', 'submitResetPasswordForm')->name('reset.password.post');
     Route::get('/admins', function () {return AdminResource::collection(Admin::all());});
     Route::get('/admin/{id}',function($id){return new AdminResource(Admin::findOrFail($id));});
     Route::post('/admin','store');

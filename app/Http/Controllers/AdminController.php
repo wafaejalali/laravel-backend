@@ -66,7 +66,40 @@ class AdminController extends Controller
             $message->subject('Reset Password');
         });
 
-        return back()->with('message', 'We have e-mailed your password reset link!');
+        return response()->json(["message"=>"We have e-mailed your password reset link!"],200);
+    }
+
+    /**
+       * Write code on Method
+       *
+       * @return \Illuminate\Http\Response
+       */
+      public function showResetPasswordForm($token) {
+        return view('auth.forgetPasswordLink', ['token' => $token]);
+     }
+
+     /**
+     * Show the form for creating a new resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function submitResetPasswordForm(Request $request){
+        $updatePassword = DB::table('password_resets')
+        ->where([
+          'email' => $request->email,
+          'token' => $request->token
+        ])
+        ->first();
+
+        if(!$updatePassword){
+            return response()->json(["message"=>"invalide token"],200);
+        }
+
+        $user = Admin::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+
+        DB::table('password_resets')->where(['email'=> $request->email])->delete();
+
+        return response()->json(["message"=>"We have e-mailed your password reset link!"],200);
     }
 
     /**
