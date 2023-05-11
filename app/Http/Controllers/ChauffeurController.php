@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\Chauffeur;
 class ChauffeurController extends Controller
