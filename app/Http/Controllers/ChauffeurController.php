@@ -37,9 +37,9 @@ class ChauffeurController extends Controller
 
         // check if user exists in database
         $user = Chauffeur::where('username', $username)->first();
-
+        $id=Chauffeur::where('username', $username)->first()->id_admin;
         if ($user && Hash::check($password, $user->password)) {
-            return response()->json(['exists' => true]);
+            return response()->json(['exists' => true,'id'=>$id]);
         } else {
             return response()->json(['exists' => false]);
         }
@@ -69,8 +69,11 @@ class ChauffeurController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   $voyagess=[];
+        $id_vahicule=Vahicule::where('id_chauffeur','=',$id)->first()->id_vahicule;
+        $voyages=Voyage::where('id_vahicule','=',$id_vahicule)->get();
+        return['voyage'=>$voyages];
+
     }
 
     /**
