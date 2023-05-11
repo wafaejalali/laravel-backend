@@ -50,7 +50,7 @@ Route::controller(AdminController::class)->group(function () {
 
 Route::controller(ChauffeurController::class)->group(function () {
     Route::post('/chauffeurLogin','login');
-    Route::post('/chauffeurVoyage/{id}','show');
+    Route::get('/chauffeurVoyage/{id}','show');
     Route::get('/chauffeurs', function () {return ChauffeurResource::collection(Chauffeur::all());});
     Route::get('/chauffeur/{id}',function($id){return new ChauffeurResource(Chauffeur::findOrFail($id));});
     Route::post('/chauffeur','store');

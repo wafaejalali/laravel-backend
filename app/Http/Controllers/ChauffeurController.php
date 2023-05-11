@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\Chauffeur;
+use App\Models\Voyage;
+use App\Models\Vahicule;
 class ChauffeurController extends Controller
 {
     /**
