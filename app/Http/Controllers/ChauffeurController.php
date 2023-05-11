@@ -52,13 +52,13 @@ class ChauffeurController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   $pass=Hash::make($request->password);
         Chauffeur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'date_de_naissance' => $request->date_de_naissance,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => $pass,
            ]);
     }
 
@@ -95,12 +95,13 @@ class ChauffeurController extends Controller
     {
         if(Chauffeur::where('id_chauffeur',$id)->exists()){
             $admin=Chauffeur::find($id);
+            $pass=Hash::make($request->password);
             $admin->id_chauffeur = $id;
             $admin->nom = $request->nom;
             $admin->prenom = $request->prenom;
             $admin->date_de_naissance = $request->date_de_naissance;
             $admin->username = $request->username;
-            $admin->password= $request->password;
+            $admin->password= $pass;
             $admin->save();
             return response()->json(["message"=>"updated succesfully"],200);
           }else{

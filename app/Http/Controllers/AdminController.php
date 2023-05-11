@@ -154,13 +154,14 @@ class AdminController extends Controller
     {
         if(Admin::where('id_admin',$id)->exists()){
           $admin=Admin::find($id);
+          $pass=Hash::make($request->password);
           $admin->id_admin = $id;
           $admin->nom = $request->nom;
           $admin->prenom = $request->prenom;
           $admin->date_de_naissance = $request->date_de_naissance;
           $admin->email = $request->email;
           $admin->username = $request->username;
-          $admin->password= $request->password;
+          $admin->password= $pass;
           $admin->save();
           return response()->json(["message"=>"updated succesfully"],200);
         }else{
