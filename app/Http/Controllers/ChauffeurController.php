@@ -54,7 +54,17 @@ class ChauffeurController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   $pass=Hash::make($request->password);
+    {    $request->validate([
+        'nom'=>'required|string|max:30',
+        'prenom'=>'required|string|max:30',
+        'date_de_naissance'=>'required|date',
+
+        'username'=>'required|string|max:30',
+        'password'=>'required|string|max:30',
+      ]);
+
+
+        $pass=Hash::make($request->password);
         Chauffeur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -97,7 +107,14 @@ class ChauffeurController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {    $request->validate([
+        'nom'=>'required|string|max:30',
+        'prenom'=>'required|string|max:30',
+        'date_de_naissance'=>'required|date',
+       
+        'username'=>'required|string|max:30',
+        'password'=>'required|string|max:30',
+      ]);
         if(Chauffeur::where('id_chauffeur',$id)->exists()){
             $admin=Chauffeur::find($id);
             $pass=Hash::make($request->password);

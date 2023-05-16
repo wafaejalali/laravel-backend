@@ -34,7 +34,15 @@ class VoyageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
+    {   $request->validate([
+        'destination'=>'required|string|max:30',
+        'matricule'=>'required|string|max:30',
+        'date_depart'=>'required|date',
+        'date_arrive'=>'required|date',
+        'date_programmer'=>'required|date',
+      ]);
+
+        $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
         Voyage::create([
             'id_voyage' => $request->id_voyage,
             'destination' => $request->destination,
@@ -77,7 +85,14 @@ class VoyageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {    $request->validate([
+        'destination'=>'required|string|max:30',
+        'matricule'=>'required|string|max:30',
+        'date_depart'=>'required|date',
+        'date_arrive'=>'required|date',
+        'date_programmer'=>'required|date',
+      ]);
+
         if(Voyage::where('id_voyage',$id)->exists()){
             $admin=Voyage::find($id);
             $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;

@@ -163,7 +163,14 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   $request->validate([
+        'nom'=>'required|string|max:30',
+        'prenom'=>'required|string|max:30',
+        'date_de_naissance'=>'required|date',
+        'email'=>'required|string|max:255|email',
+        'username'=>'required|string|max:30',
+        'password'=>'required|string|max:30',
+      ]);
         if(Admin::where('id_admin',$id)->exists()){
           $admin=Admin::find($id);
           $pass=Hash::make($request->password);

@@ -34,7 +34,12 @@ class VahiculeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   $request->validate([
+        'modele'=>'required|string|max:30',
+        'matricule'=>'required|string|max:30',
+        'couleur'=>'required|string|max:30',
+        'chauffeur'=>'required|string|max:255',
+      ]);
         $id_chauffeur=Chauffeur::where('nom','=',$request->chauffeur)->first()->id_chauffeur;
         Vahicule::create([
             'modele' => $request->modele,
@@ -75,7 +80,12 @@ class VahiculeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   $request->validate([
+        'modele'=>'required|string|max:30',
+        'matricule'=>'required|string|max:30',
+        'couleur'=>'required|string|max:30',
+        'chauffeur'=>'required|string|max:255',
+      ]);
         if(Vahicule::where('id_vahicule',$id)->exists()){
             $admin=Vahicule::find($id);
             $id_chauffeur=Chauffeur::where('nom','=',$request->chauffeur)->first()->id_chauffeur;

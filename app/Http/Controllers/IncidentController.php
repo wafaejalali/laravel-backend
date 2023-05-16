@@ -35,7 +35,14 @@ class IncidentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   $request->validate([
+        'lieu'=>'required|string|max:30',
+        'matricule'=>'required|string|max:30',
+        'date_incident'=>'required|date',
+        'destination'=>'required|string|max:255',
+        'etat_incident'=>'required|string|max:30',
+
+      ]);
         $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
         $id_voyage=Voyage::where('destination','=',$request->destination)->where('id_vahicule', '=', $id_vahicule)->first()->id_voyage;
 
@@ -81,7 +88,14 @@ class IncidentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   $request->validate([
+        'lieu'=>'required|string|max:30',
+        'matricule'=>'required|string|max:30',
+        'date_incident'=>'required|date',
+        'destination'=>'required|string|max:255',
+        'etat_incident'=>'required|string|max:30',
+
+      ]);
         if(Incident::where('id_incident',$id)->exists()){
             $admin=Incident::find($id);
             $id_vahicule=Vahicule::where('matricule','=',$request->matricule)->first()->id_vahicule;
