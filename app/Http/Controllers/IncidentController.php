@@ -58,7 +58,7 @@ class IncidentController extends Controller
      */
     public function show($id)
     {
-        $incidents=Voyage::where('id_voyage','=',$id)->get();
+        $incidents=Incident::where('id_voyage','=',$id)->get();
         return['incidents'=>$incidents];
     }
 
