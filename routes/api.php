@@ -80,6 +80,7 @@ Route::controller(VoyageController::class)->group(function () {
 Route::controller(IncidentController::class)->group(function () {
     Route::get('/incidents', function () {return IncidentResource::collection(Incident::all());});
     Route::get('/incident/{id}',function($id){return new IncidentResource(Incident::findOrFail($id));});
+    Route::get('/incidentVoyage/{id}','show');
     Route::post('/incident','store');
     Route::put('/incident/{id}','update');
     Route::delete('/incident/{id}','destroy');

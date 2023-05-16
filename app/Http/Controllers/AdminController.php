@@ -109,7 +109,19 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  $pass=Hash::make($request->password);
+    {
+      $request->validate([
+        'nom'=>'required|string|max:30',
+        'prenom'=>'required|string|max:30',
+        'date_de_naissance'=>'required|date',
+        'email'=>'required|string|max:255|email',
+        'username'=>'required|string|max:30',
+        'password'=>'required|string|max:30',
+      ]);
+
+
+
+       $pass=Hash::make($request->password);
        $admin = new Admin();
        $admin->nom= $request->nom;
        $admin->prenom= $request->prenom;
